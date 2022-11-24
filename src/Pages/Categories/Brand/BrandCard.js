@@ -1,66 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BrandCard = () => {
-  const model = "pro";
-  const name = "dell";
+const BrandCard = ({ laptop }) => {
+  const { brand, model, askingPrice, location, img1, img2, img3, img4, id } =
+    laptop;
+  const image1 = id + "a";
+  const image2 = id + "b";
+  const image3 = id + "c";
+  const image4 = id + "d";
   return (
     <div>
       <div className="card shadow-xl">
         <figure>
           <div className="carousel w-full">
-            <div id="Image1" className="carousel-item w-full">
-              <img
-                alt=""
-                src="https://imaginecomputerbd.com/wp-content/uploads/ux434fac-500x500-1.jpg"
-                className="w-full"
-              />
+            <div id={image1} className="carousel-item w-full">
+              <img alt="" src={img1} className="w-full" />
             </div>
-            <div id="Image2" className="carousel-item w-full">
-              <img
-                alt=""
-                src="https://www.classyprice.com.bd/images/asus-zenbook-14-ux434fq-core-i7-laptop-1-1000x1000.jpg"
-                className="w-full"
-              />
+            <div id={image2} className="carousel-item w-full">
+              <img alt="" src={img2} className="w-full" />
             </div>
-            <div id="Image3" className="carousel-item w-full">
-              <img
-                alt=""
-                src="https://igadget.com.bd/wp-content/uploads/2020/09/ASUS-ZenBook-14-UX434FAC-core-i7-3.jpg"
-                className="w-full"
-              />
+            <div id={image3} className="carousel-item w-full">
+              <img alt="" src={img3} className="w-full" />
             </div>
-            <div id="Image4" className="carousel-item w-full">
-              <img
-                alt=""
-                src="https://www.startech.com.bd/image/cache/catalog/laptop/asus/zenbook-14-ux435eal/zenbook-14-ux435eal-5-500x500.jpg"
-                className="w-full"
-              />
+            <div id={image4} className="carousel-item w-full">
+              <img alt="" src={img4} className="w-full" />
             </div>
           </div>
         </figure>
         <div className="flex justify-center pb-3 w-full gap-2">
-          <a href="#Image1" className="btn btn-xs">
+          <a href={`#${image1}`} className="btn btn-xs">
             1
           </a>
-          <a href="#Image2" className="btn btn-xs">
+          <a href={`#${image2}`} className="btn btn-xs">
             2
           </a>
-          <a href="#Image3" className="btn btn-xs">
+          <a href={`#${image3}`} className="btn btn-xs">
             3
           </a>
-          <a href="#Image4" className="btn btn-xs">
+          <a href={`#${image4}`} className="btn btn-xs">
             4
           </a>
         </div>
         <div className="card-body">
-          <h2 className="card-title">Model:</h2>
-          <p>Brand:</p>
-          <p>Asking Price:</p>
+          <h2 className="card-title">Model:{model}</h2>
+          <p>Brand: {brand}</p>
+          <p>Asking Price: {askingPrice}</p>
           <p>Buying Date:</p>
-          <p>Location:</p>
+          <p>Location: {location}</p>
           <div className="card-actions justify-end">
-            <Link to={`/brands/${name}/${model}`}>
+            <Link to={`/brands/${brand}/${id}`}>
               <button className="btn btn-primary">Buy Now</button>
             </Link>
           </div>

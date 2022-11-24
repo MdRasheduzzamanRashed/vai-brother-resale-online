@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BrandsCard = ({ brand }) => {
-  const { name, img, details } = brand;
-
+  const { name, img, details, id } = brand;
   return (
     <div className="card shadow-xl image-full">
       <figure>

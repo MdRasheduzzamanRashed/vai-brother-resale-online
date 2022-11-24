@@ -73,6 +73,9 @@ const Navbar = () => {
               <Link>Profile</Link>
             </li>
             <li>
+              <Link to='/add-a-laptop'>Add a laptop</Link>
+            </li>
+            <li>
               <Link>Settings</Link>
             </li>
             <li>
