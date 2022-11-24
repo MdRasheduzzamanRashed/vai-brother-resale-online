@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "../../../assets/logo/Vai Brother-01.png";
 import { Link } from "react-router-dom";
-import { FaSortDown } from "react-icons/fa";
 
 const Navbar = () => {
   const menuLists = (
@@ -9,34 +8,17 @@ const Navbar = () => {
       <li>
         <Link to="/">Home</Link>
       </li>
-      <li tabIndex={0}>
-        <Link className="justify-between">
-          Categories
-          <FaSortDown />
-        </Link>
-        <ul className="p-2">
-          <li>
-            <Link>Dell</Link>
-          </li>
-          <li>
-            <Link>Asus</Link>
-          </li>
-          <li>
-            <Link>Lenovo</Link>
-          </li>
-          <li>
-            <Link>Hp</Link>
-          </li>
-        </ul>
+      <li>
+        <Link to="/brands">Brands</Link>
       </li>
       <li>
-        <Link>Blogs</Link>
+        <Link to="/blogs">Blogs</Link>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -88,10 +70,7 @@ const Navbar = () => {
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </Link>
+              <Link>Profile</Link>
             </li>
             <li>
               <Link>Settings</Link>
