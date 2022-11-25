@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BrandCard = ({ laptop }) => {
-  const { brand, model, askingPrice, location, img1, img2, img3, img4, id } =
+const LaptopCard = ({ laptop }) => {
+  const { brand, model, askingPrice, location, img1, img2, img3, img4, _id } =
     laptop;
-  const image1 = id + "a";
-  const image2 = id + "b";
-  const image3 = id + "c";
-  const image4 = id + "d";
+  const image1 = _id + "a";
+  const image2 = _id + "b";
+  const image3 = _id + "c";
+  const image4 = _id + "d";
   return (
     <div>
       <div className="card shadow-xl">
@@ -48,8 +48,8 @@ const BrandCard = ({ laptop }) => {
           <p>Buying Date:</p>
           <p>Location: {location}</p>
           <div className="card-actions justify-end">
-            <Link to={`/brands/${brand}/${id}`}>
-              <button className="btn btn-primary">Buy Now</button>
+            <Link to={`/brands/${brand}/${_id}`}>
+              <button className="btn btn-primary">more details</button>
             </Link>
           </div>
         </div>
@@ -58,4 +58,4 @@ const BrandCard = ({ laptop }) => {
   );
 };
 
-export default BrandCard;
+export default LaptopCard;

@@ -1,36 +1,36 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "./../../Layouts/Main";
 import Home from "./../../Pages/Home/Home";
-import Brands from "../../Pages/Categories/Brands/Brands";
-import Brand from "../../Pages/Categories/Brand/Brand";
-import CardDetails from "./../../Pages/Categories/Brand/CardDetails";
+import Brands from "../../Pages/Brands/Brands/Brands";
+import Brand from "../../Pages/Brands/Brands/Brand/Brand";
+import CardDetails from "../../utilities/CardDetails";
 import Blogs from "./../../Pages/Blogs/Blogs";
-import AddALaptop from './../../Pages/AddALaptop/AddALaptop';
+import AddALaptop from "./../../Pages/AddALaptop/AddALaptop";
+import AllCollections from "./../../Pages/AllCollections/AllCollections";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    loader: () => fetch("brands.json"),
+    loader: () => fetch("http://localhost:5000/brands"),
     children: [
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("brands.json"),
+        loader: () => fetch("http://localhost:5000/brands"),
       },
       {
         path: "/brands",
         element: <Brands></Brands>,
-        loader: () => fetch("brands.json"),
+        loader: () => fetch("http://localhost:5000/brands"),
       },
 
       {
-        path: "/brands/:name",
+        path: "/brands/:brand",
         element: <Brand></Brand>,
-        loader: () => fetch("laptops.json"),
       },
       {
-        path: "/brands/:name/:id",
+        path: "/brands/:brand/:id",
         element: <CardDetails></CardDetails>,
       },
       {
@@ -40,6 +40,11 @@ const router = createBrowserRouter([
       {
         path: "/add-a-laptop",
         element: <AddALaptop></AddALaptop>,
+      },
+      {
+        path: "/all-collections",
+        element: <AllCollections></AllCollections>,
+        loader: () => fetch("http://localhost:5000/laptops"),
       },
     ],
   },

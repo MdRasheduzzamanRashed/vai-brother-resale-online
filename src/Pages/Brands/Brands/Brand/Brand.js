@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import BrandCard from "./BrandCard";
+import LaptopCard from "../../../../utilities/LaptopCard";
 
 const Brand = () => {
   const laptops = useLoaderData();
@@ -8,7 +8,7 @@ const Brand = () => {
   return (
     <div className=" grid grid-cols-3 gap-3">
       {laptops.map((laptop) => (
-        <BrandCard key={laptop.id} laptop={laptop}></BrandCard>
+        <LaptopCard key={laptop._id} laptop={laptop}></LaptopCard>
       ))}
     </div>
   );
