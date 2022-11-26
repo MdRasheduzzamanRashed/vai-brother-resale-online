@@ -9,6 +9,7 @@ import AddALaptop from "./../../Pages/AddALaptop/AddALaptop";
 import AllCollections from "./../../Pages/AllCollections/AllCollections";
 import Signup from './../../Pages/Signup/Signup';
 import Login from './../../Pages/Login/Login';
+import MyLaptops from './../../Pages/MyLaptops/MyLaptops';
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-laptops",
-        element: <AddALaptop></AddALaptop>,
+        element: <MyLaptops></MyLaptops>,
       },
       {
         path: "/login",

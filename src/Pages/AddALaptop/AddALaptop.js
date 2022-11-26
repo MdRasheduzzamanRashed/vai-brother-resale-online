@@ -122,7 +122,7 @@ const AddALaptop = () => {
           <span className="label-text">Name</span>
         </label>
         <input
-          {...register("name", { required: "Name is required" })}
+          {...register("name")}
           type="text"
           value={user.displayName}
           disabled
@@ -133,14 +133,14 @@ const AddALaptop = () => {
           <span className="label-text">Email</span>
         </label>
         <input
-          {...register("email", { required: "Email Address is required" })}
-          aria-invalid={errors.email ? "true" : "false"}
+          {...register("email")}
+          
           type="email"
           value={user.email}
           disabled
           className="input input-bordered input-sm w-full"
         />
-        {errors.email && <p className=" text-error">{errors.email?.message}</p>}
+        
         <label className="label">
           <span className="label-text">Brand</span>
         </label>
