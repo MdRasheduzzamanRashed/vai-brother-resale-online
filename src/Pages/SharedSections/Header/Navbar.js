@@ -5,7 +5,6 @@ import { AuthContext } from "./../../../context/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
   const handleSignOut = () => {
     logOut()
       .then(() => {})
@@ -94,6 +93,9 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="/add-a-laptop">Add a laptop</Link>
+                </li>
+                <li>
+                  <Link to="/all-users">All Users</Link>
                 </li>
                 <li>
                   <Link to='my-laptops'>My Laptops</Link>

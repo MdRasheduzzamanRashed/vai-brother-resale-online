@@ -5,6 +5,8 @@ import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
 import useToken from "./../../hooks/useToken";
+import Loading from "../SharedSections/Loading/Loading";
+import { useQuery } from "@tanstack/react-query";
 const Signup = () => {
   const {
     register,
@@ -19,6 +21,8 @@ const Signup = () => {
   const [token] = useToken(createdUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState("");
+  const [userInfo, setUserInfo] = useState({});
 
   const from = location.state?.from.pathname || "/";
 
@@ -40,11 +44,9 @@ const Signup = () => {
         // console.log(imgData);
         if (imgData.success) {
           const image = { image: imgData.data.url };
-          console.log(image);
           createUser(data.email, data.password)
             .then((result) => {
               const user = result.user;
-              console.log(user);
               toast.success("User create successfully");
               const userInfo = {
                 displayName: data.name,
@@ -54,16 +56,73 @@ const Signup = () => {
                 .then(() => {
                   saveUser(data.name, data.email, image.image);
                 })
-                .catch((e) => console.error(e));
+                .catch((e) => {
+                  toast.error(e.message);
+                });
               console.log(userInfo);
             })
-            .catch((e) => console.error(e));
+            .catch((e) => {
+              toast.error(e.message);
+            });
         }
       });
   };
 
+  const handleGoogleSignIn = () => {
+    googleSignIn(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        setUserEmail(user.email);
+        setUserInfo({
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+          status: "member",
+        });
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
+  };
+  const url = `http://localhost:5000/check-user?email=${userEmail}`;
+  const { data, isLoading } = useQuery({
+    queryKey: ["userHas", userEmail],
+    queryFn: async () => {
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      const data = await res.json();
+
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    <Loading></Loading>;
+  }
+  if (!data) {
+    console.log("line clear");
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedUserEmail(userInfo.email);
+        toast.success("User create successfully");
+        navigate(from, { replace: true });
+      });
+  } else {
+    navigate(from, { replace: true });
+  }
+
   const saveUser = (name, email, image) => {
-    const user = { name, email, image };
+    const user = { name, email, image, status: "Member" };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
@@ -74,18 +133,9 @@ const Signup = () => {
       .then((res) => res.json())
       .then((data) => {
         setCreatedUserEmail(email);
+        toast.success("User create successfully");
         navigate(from, { replace: true });
       });
-  };
-
-  const handleGoogleSignIn = () => {
-    googleSignIn(googleProvider)
-      .then((result) => {
-        const user = result.user;
-        navigate(from, { replace: true });
-        console.log(user);
-      })
-      .catch((e) => console.error(e));
   };
 
   return (

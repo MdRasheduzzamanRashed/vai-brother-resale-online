@@ -34,6 +34,7 @@ const Login = () => {
         const user = result.user;
         setLoginUserEmail(data.email);
         setLoginError("");
+        navigate(from, { replace: true });
       })
       .catch((e) => {
         console.error(e);
@@ -53,8 +54,8 @@ const Login = () => {
   };
 
   return (
-    <div className=" my-60">
-      <div className=" w-96 p-7 mx-auto shadow-lg rounded-lg">
+    <div className=" my-32">
+      <div className=" w-2/5 p-7 mx-auto shadow-lg rounded-lg">
         <h2 className="text-2xl text-center mb-9">Login</h2>
         <form onSubmit={handleSubmit(handleLogin)}>
           <label className="label">

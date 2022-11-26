@@ -10,6 +10,7 @@ import AllCollections from "./../../Pages/AllCollections/AllCollections";
 import Signup from './../../Pages/Signup/Signup';
 import Login from './../../Pages/Login/Login';
 import MyLaptops from './../../Pages/MyLaptops/MyLaptops';
+import AllUsers from './../../Pages/AllUsers/AllUsers';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,8 @@ const router = createBrowserRouter([
       {
         path: "/brands/:brand/:id",
         element: <CardDetails></CardDetails>,
-        loader: ({params}) => fetch(`http://localhost:5000/laptops/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/laptops/${params.id}`),
       },
       {
         path: "/blogs",
@@ -44,6 +46,11 @@ const router = createBrowserRouter([
       {
         path: "/add-a-laptop",
         element: <AddALaptop></AddALaptop>,
+      },
+      {
+        path: "/all-users",
+        element: <AllUsers></AllUsers>,
+        loader: () => fetch("http://localhost:5000/users"),
       },
       {
         path: "/my-laptops",

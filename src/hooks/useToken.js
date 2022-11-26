@@ -4,7 +4,7 @@ const useToken = (email) => {
   const [token, setToken] = useState();
   useEffect(() => {
     if (email) {
-      fetch()
+      fetch('')
         .then((res) => res.json())
         .then((data) => {
           if (data.accessToken) {

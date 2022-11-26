@@ -9,7 +9,7 @@ const MyLaptops = () => {
   const url = `http://localhost:5000/my-laptops?email=${user?.email}`;
 
   const { data: laptops = [], isLoading } = useQuery({
-    queryKey: ["bookings", user?.email],
+    queryKey: ["laptops", user?.email],
     queryFn: async () => {
       const res = await fetch(url, {
         headers: {
@@ -36,6 +36,7 @@ const MyLaptops = () => {
               <th>Asking Price</th>
               <th>Processor</th>
               <th>Sell Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -46,9 +47,10 @@ const MyLaptops = () => {
                 <td>{laptop.model}</td>
                 <td>{laptop.askingPrice}</td>
                 <td>{laptop.processor}</td>
+                <td>{laptop?.status ? laptop?.status : 'Available'}</td>
                 <td>
                   <Link>
-                    <button className="btn btn-active btn-sm">Available</button>
+                    <button className="btn btn-active btn-sm">mark as sold</button>
                   </Link>
                 </td>
               </tr>
