@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { Link } from "react-router-dom";
 
 const BrandsCard = ({ brandC, setBrandWise }) => {
   const { brand, img, details } = brandC;
+
   const { data } = useQuery({
     queryKey: [("brand", brand)],
     queryFn: () =>
@@ -11,7 +11,7 @@ const BrandsCard = ({ brandC, setBrandWise }) => {
         res.json()
       ),
   });
-  console.log(data);
+
   return (
     <div className="card shadow-xl image-full">
       <figure>

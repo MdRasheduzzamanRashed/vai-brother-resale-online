@@ -2,8 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LaptopCard = ({ laptop }) => {
-  const { brand, model, askingPrice, location, img1, img2, img3, img4, _id } =
-    laptop;
+  const {
+    brand,
+    model,
+    askingPrice,
+    location,
+    img1,
+    img2,
+    img3,
+    img4,
+    _id,
+    dob,
+  } = laptop;
   const image1 = _id + "a";
   const image2 = _id + "b";
   const image3 = _id + "c";
@@ -42,10 +52,10 @@ const LaptopCard = ({ laptop }) => {
           </a>
         </div>
         <div className="card-body">
-          <h2 className="card-title">Model:{model}</h2>
+          <h2 className="card-title">Model: {model}</h2>
           <p>Brand: {brand}</p>
           <p>Asking Price: {askingPrice}</p>
-          <p>Buying Date:</p>
+          <p>Buying Date: {dob}</p>
           <p>Location: {location}</p>
           <div className="card-actions justify-end">
             <Link to={`/brands/${brand}/${_id}`}>
