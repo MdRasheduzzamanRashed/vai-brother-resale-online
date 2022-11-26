@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../../assets/logo/Vai Brother-01.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./../../../context/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((e) => console.error(e));
+  };
   const menuLists = (
     <>
       <li>
@@ -65,25 +73,45 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img alt="" src="https://placeimg.com/80/80/people" />
+              <img
+                alt=""
+                src={
+                  user?.photoURL
+                    ? user?.photoURL
+                    : "https://placeimg.com/80/80/people"
+                }
+              />
             </div>
           </label>
           <ul
             tabIndex={0}
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
-            <li>
-              <Link>Profile</Link>
-            </li>
-            <li>
-              <Link to='/add-a-laptop'>Add a laptop</Link>
-            </li>
-            <li>
-              <Link>Settings</Link>
-            </li>
-            <li>
-              <Link>Logout</Link>
-            </li>
+            {user?.uid ? (
+              <>
+                <li>
+                  <Link>{user.displayName}</Link>
+                </li>
+                <li>
+                  <Link to="/add-a-laptop">Add a laptop</Link>
+                </li>
+                <li>
+                  <Link to='my-laptops'>My Laptops</Link>
+                </li>
+                <li>
+                  <button onClick={handleSignOut}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

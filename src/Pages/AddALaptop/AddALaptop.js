@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "./../../context/AuthProvider";
 
 const AddALaptop = () => {
   const {
@@ -7,7 +8,8 @@ const AddALaptop = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const [images, setImages] = useState([]);
   const imagesU = [];
   const imageHostKey = process.env.REACT_APP_imgbb_key;
@@ -122,6 +124,8 @@ const AddALaptop = () => {
         <input
           {...register("name", { required: "Name is required" })}
           type="text"
+          value={user.displayName}
+          disabled
           placeholder="Your name"
           className="input input-bordered input-sm w-full"
         />
@@ -132,6 +136,8 @@ const AddALaptop = () => {
           {...register("email", { required: "Email Address is required" })}
           aria-invalid={errors.email ? "true" : "false"}
           type="email"
+          value={user.email}
+          disabled
           className="input input-bordered input-sm w-full"
         />
         {errors.email && <p className=" text-error">{errors.email?.message}</p>}
@@ -280,7 +286,7 @@ const AddALaptop = () => {
           className="mb-2 w-1/2"
         />
         {errors.image && <p className=" text-error">{errors.image?.message}</p>}
-        <input type="submit" className="w-full btn" value="Add Doctor" />
+        <input type="submit" className="w-full btn" value="Add Laptop" />
       </form>
     </div>
   );

@@ -7,6 +7,8 @@ import CardDetails from "../../utilities/CardDetails";
 import Blogs from "./../../Pages/Blogs/Blogs";
 import AddALaptop from "./../../Pages/AddALaptop/AddALaptop";
 import AllCollections from "./../../Pages/AllCollections/AllCollections";
+import Signup from './../../Pages/Signup/Signup';
+import Login from './../../Pages/Login/Login';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,18 @@ const router = createBrowserRouter([
       {
         path: "/add-a-laptop",
         element: <AddALaptop></AddALaptop>,
+      },
+      {
+        path: "/my-laptops",
+        element: <AddALaptop></AddALaptop>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Signup></Signup>,
       },
       {
         path: "/all-collections",
