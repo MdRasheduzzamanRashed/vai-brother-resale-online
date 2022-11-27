@@ -1,13 +1,21 @@
 import React, { useContext } from "react";
 import logo from "../../../assets/logo/Vai Brother-01.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./../../../context/AuthProvider";
+import useAdmin from "./../../../hooks/useAdmin";
+import useMember from "./../../../hooks/useMember";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
+  const [isMember] = useMember(user?.email);
+  const navigate = useNavigate();
+
   const handleSignOut = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        navigate("/login");
+      })
       .catch((e) => console.error(e));
   };
   const menuLists = (
@@ -21,6 +29,39 @@ const Navbar = () => {
       <li>
         <Link to="/all-collections">All Collections</Link>
       </li>
+      <li>
+        <Link>Category</Link>
+        <ul className="p-2 h-44 bg-slate-300">
+          <li>
+            <Link>Gaming Laptop</Link>
+          </li>
+          <li>
+            <Link>Laptop</Link>
+          </li>
+          <li>
+            <Link>Desktop</Link>
+          </li>
+        </ul>
+      </li>
+
+      {isMember || isAdmin ? (
+        <>
+          <li>
+            <Link to="my-laptops">My Laptops</Link>
+          </li>
+        </>
+      ) : (
+        <></>
+      )}
+      {isAdmin ? (
+        <>
+          <li>
+            <Link to="/all-users">All Users</Link>
+          </li>
+        </>
+      ) : (
+        <></>
+      )}
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
@@ -62,13 +103,6 @@ const Navbar = () => {
         <ul className="menu menu-horizontal p-0">{menuLists}</ul>
       </div>
       <div className="navbar-end">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered"
-          />
-        </div>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
@@ -94,12 +128,7 @@ const Navbar = () => {
                 <li>
                   <Link to="/add-a-laptop">Add a laptop</Link>
                 </li>
-                <li>
-                  <Link to="/all-users">All Users</Link>
-                </li>
-                <li>
-                  <Link to='my-laptops'>My Laptops</Link>
-                </li>
+
                 <li>
                   <button onClick={handleSignOut}>Logout</button>
                 </li>

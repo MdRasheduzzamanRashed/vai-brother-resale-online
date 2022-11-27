@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
 import useToken from "./../../hooks/useToken";
-import Loading from "../SharedSections/Loading/Loading";
-import { useQuery } from "@tanstack/react-query";
+
 const Signup = () => {
   const {
     register,
@@ -22,8 +26,7 @@ const Signup = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
-  const [userInfo, setUserInfo] = useState({});
-
+  const users = useLoaderData();
   const from = location.state?.from.pathname || "/";
 
   if (token) {
@@ -73,56 +76,22 @@ const Signup = () => {
       .then((result) => {
         const user = result.user;
         setUserEmail(user.email);
-        setUserInfo({
-          name: user.displayName,
-          email: user.email,
-          image: user.photoURL,
-          status: "member",
-        });
+        const userHas = users.filter((us) => us.email === userEmail);
+        if (!userHas || !users) {
+          saveUser(user.displayName, user.email, user.photoURL);
+        } else {
+          toast.success("Google sign in successfully");
+          navigate(from, { replace: true });
+        }
       })
       .catch((e) => {
         toast.error(e.message);
       });
   };
-  const url = `http://localhost:5000/check-user?email=${userEmail}`;
-  const { data, isLoading } = useQuery({
-    queryKey: ["userHas", userEmail],
-    queryFn: async () => {
-      const res = await fetch(url, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      const data = await res.json();
-
-      return data;
-    },
-  });
-
-  if (isLoading) {
-    <Loading></Loading>;
-  }
-  if (!data) {
-    console.log("line clear");
-    fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCreatedUserEmail(userInfo.email);
-        toast.success("User create successfully");
-        navigate(from, { replace: true });
-      });
-  } else {
-    navigate(from, { replace: true });
-  }
 
   const saveUser = (name, email, image) => {
     const user = { name, email, image, status: "Member" };
+
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {

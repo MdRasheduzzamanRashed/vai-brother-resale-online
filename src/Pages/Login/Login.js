@@ -1,10 +1,16 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import ForgetPassword from "./ForgetPassword";
 import useToken from "./../../hooks/useToken";
+import toast from "react-hot-toast";
 const Login = () => {
   const {
     register,
@@ -18,6 +24,9 @@ const Login = () => {
 
   const [loginUserEmail, setLoginUserEmail] = useState("");
   const [token] = useToken(loginUserEmail);
+
+  const [userEmail, setUserEmail] = useState("");
+  const users = useLoaderData();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,11 +55,37 @@ const Login = () => {
     googleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
-        setLoginError("");
-        navigate(from, { replace: true });
-        console.log(user);
+        setUserEmail(user.email);
+        setLoginUserEmail(user.email);
+        const userHas = users.filter((us) => us.email === userEmail);
+        if (!userHas || !users) {
+          saveUser(user.displayName, user.email, user.photoURL);
+        } else {
+          toast.success("Google sign in successfully");
+          navigate(from, { replace: true });
+        }
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        toast.error(e.message);
+      });
+  };
+
+  const saveUser = (name, email, image) => {
+    const user = { name, email, image, status: "Member" };
+
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoginUserEmail(email);
+        toast.success("User create successfully");
+        navigate(from, { replace: true });
+      });
   };
 
   return (

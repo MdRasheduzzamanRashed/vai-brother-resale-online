@@ -6,7 +6,7 @@ const Brand = () => {
   const laptops = useLoaderData();
   console.log(laptops);
   return (
-    <div className=" grid grid-cols-3 gap-3">
+    <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
       {laptops.map((laptop) => (
         <LaptopCard key={laptop._id} laptop={laptop}></LaptopCard>
       ))}

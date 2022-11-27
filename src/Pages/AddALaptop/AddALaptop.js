@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./../../context/AuthProvider";
 
 const AddALaptop = () => {
@@ -9,13 +11,13 @@ const AddALaptop = () => {
     handleSubmit,
   } = useForm();
   const { user } = useContext(AuthContext);
-  console.log(user);
   const [images, setImages] = useState([]);
   const imagesU = [];
   const imageHostKey = process.env.REACT_APP_imgbb_key;
 
+  const navigate = useNavigate();
+
   const handleAddLaptop = (data) => {
-    console.log(data);
     const image1 = data.image1[0];
     const image2 = data.image2[0];
     const image3 = data.image3[0];
@@ -84,21 +86,24 @@ const AddALaptop = () => {
       brand: data.brand,
       details: data.details,
       dob: data.dob,
-      email: data.email,
+      email: user.email,
       generation: data.generation,
       gpu: data.gpu,
       model: data.model,
-      name: data.name,
+      category: data.category,
+      name: user.displayName,
       version: data.version,
       location: data.location,
       condition: data.condition,
       askingPrice: data.askingPrice,
+      newPrice: data.newPrice,
       processor: data.processor,
       mobile: data.mobile,
       img1: images[0].image,
       img2: images[1].image,
       img3: images[2].image,
       img4: images[3].image,
+      date: new Date(),
     };
     console.log(laptop);
     fetch("http://localhost:5000/laptops", {
@@ -111,6 +116,8 @@ const AddALaptop = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        toast.success("One Laptop added successfully.");
+        navigate("/my-laptops");
       });
   };
 
@@ -119,55 +126,6 @@ const AddALaptop = () => {
       <h3 className="text-3xl text-center uppercase">Add a Laptop</h3>
       <form onSubmit={handleSubmit(handleAddLaptop)}>
         <label className="label">
-          <span className="label-text">Name</span>
-        </label>
-        <input
-          {...register("name")}
-          type="text"
-          value={user.displayName}
-          disabled
-          placeholder="Your name"
-          className="input input-bordered input-sm w-full"
-        />
-        <label className="label">
-          <span className="label-text">Email</span>
-        </label>
-        <input
-          {...register("email")}
-          
-          type="email"
-          value={user.email}
-          disabled
-          className="input input-bordered input-sm w-full"
-        />
-        
-        <label className="label">
-          <span className="label-text">Brand</span>
-        </label>
-        <select
-          {...register("brand")}
-          className=" select-bordered select select-sm w-full mb-2"
-        >
-          <option>Apple</option>
-          <option>Asus</option>
-          <option>Dell</option>
-          <option>Lenovo</option>
-          <option>Acer</option>
-          <option>Hp</option>
-          <option>Samsung</option>
-          <option>Sony</option>
-          <option>DCL</option>
-          <option>Others</option>
-        </select>
-        <label className="label">
-          <span className="label-text">Model</span>
-        </label>
-        <input
-          {...register("model", { required: "Name is required" })}
-          type="text"
-          className="input input-bordered input-sm w-full"
-        />
-        <label className="label">
           <span className="label-text">Mobile</span>
         </label>
         <input
@@ -175,85 +133,158 @@ const AddALaptop = () => {
           type="text"
           className="input input-bordered input-sm w-full"
         />
-        <label className="label">
-          <span className="label-text">Processor </span>
-        </label>
-        <select
-          {...register("processor")}
-          className=" select-bordered select select-sm w-full mb-2"
-        >
-          <option>Intel</option>
-          <option>AMD</option>
-          <option>MAC</option>
-        </select>
-        <label className="label">
-          <span className="label-text">GPU</span>
-        </label>
-        <select
-          {...register("gpu")}
-          className=" select-bordered select select-sm w-full mb-2"
-        >
-          <option>Yes</option>
-          <option>No</option>
-        </select>
-        <label className="label">
-          <span className="label-text">Generation</span>
-        </label>
-        <select
-          {...register("generation")}
-          className=" select-bordered select select-sm w-full mb-2"
-        >
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>5000</option>
-          <option>7000</option>
-        </select>
-        <label className="label">
-          <span className="label-text">Version/Core</span>
-        </label>
-        <input
-          {...register("version", { required: "Name is required" })}
-          type="text"
-          className="input input-bordered input-sm w-full"
-        />
-        <label className="label">
-          <span className="label-text">Asking Price</span>
-        </label>
-        <input
-          {...register("askingPrice", { required: "Name is required" })}
-          type="text"
-          className="input input-bordered input-sm w-full"
-        />
-        <label className="label">
-          <span className="label-text">Location</span>
-        </label>
-        <input
-          {...register("location", { required: "Name is required" })}
-          type="text"
-          className="input input-bordered input-sm w-full"
-        />
-        <label className="label">
-          <span className="label-text">Date of Buy</span>
-        </label>
-        <input
-          {...register("dob", { required: "Name is required" })}
-          type="text"
-          className="input input-bordered input-sm w-full"
-        />
-        <label className="label">
-          <span className="label-text">Condition</span>
-        </label>
-        <select
-          {...register("condition")}
-          className=" select-bordered select select-sm w-full mb-2"
-        >
-          <option>Rarely used</option>
-          <option>Used</option>
-          <option>Fresh like new</option>
-          <option>Fresh</option>
-        </select>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="label">
+              <span className="label-text">Brand</span>
+            </label>
+            <select
+              {...register("brand")}
+              className=" select-bordered select select-sm w-full mb-2"
+            >
+              <option>Apple</option>
+              <option>Asus</option>
+              <option>Dell</option>
+              <option>Lenovo</option>
+              <option>Acer</option>
+              <option>Hp</option>
+              <option>Samsung</option>
+              <option>Sony</option>
+              <option>DCL</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Model</span>
+            </label>
+            <input
+              {...register("model", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Category</span>
+            </label>
+            <select
+              {...register("category")}
+              className=" select-bordered select select-sm w-full mb-2"
+            >
+              <option>Gaming Laptop</option>
+              <option>Laptop</option>
+              <option>Desktop</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="label">
+              <span className="label-text">Processor </span>
+            </label>
+            <select
+              {...register("processor")}
+              className=" select-bordered select select-sm w-full mb-2"
+            >
+              <option>Intel</option>
+              <option>AMD</option>
+              <option>MAC</option>
+            </select>
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">GPU</span>
+            </label>
+            <select
+              {...register("gpu")}
+              className=" select-bordered select select-sm w-full mb-2"
+            >
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Generation</span>
+            </label>
+            <select
+              {...register("generation")}
+              className=" select-bordered select select-sm w-full mb-2"
+            >
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>5000</option>
+              <option>7000</option>
+            </select>
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Version/Core</span>
+            </label>
+            <input
+              {...register("version", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Asking Price</span>
+            </label>
+            <input
+              {...register("askingPrice", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">New Price</span>
+            </label>
+            <input
+              {...register("newPrice", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Location</span>
+            </label>
+            <input
+              {...register("location", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Date of Buy</span>
+            </label>
+            <input
+              {...register("dob", { required: "Name is required" })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Condition</span>
+            </label>
+            <select
+              {...register("condition")}
+              className=" select-bordered select select-sm w-full mb-2"
+            >
+              <option>Rarely used</option>
+              <option>Used</option>
+              <option>Fresh like new</option>
+              <option>Fresh</option>
+            </select>
+          </div>
+        </div>
+
         <label className="label">
           <span className="label-text">Details</span>
         </label>

@@ -7,10 +7,10 @@ import CardDetails from "../../utilities/CardDetails";
 import Blogs from "./../../Pages/Blogs/Blogs";
 import AddALaptop from "./../../Pages/AddALaptop/AddALaptop";
 import AllCollections from "./../../Pages/AllCollections/AllCollections";
-import Signup from './../../Pages/Signup/Signup';
-import Login from './../../Pages/Login/Login';
-import MyLaptops from './../../Pages/MyLaptops/MyLaptops';
-import AllUsers from './../../Pages/AllUsers/AllUsers';
+import Signup from "./../../Pages/Signup/Signup";
+import Login from "./../../Pages/Login/Login";
+import MyLaptops from "./../../Pages/MyLaptops/MyLaptops";
+import AllUsers from "./../../Pages/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-users",
-        element: <AllUsers></AllUsers>,
-        loader: () => fetch("http://localhost:5000/users"),
+        element: <AllUsers></AllUsers>
       },
       {
         path: "/my-laptops",
@@ -59,10 +58,12 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+        loader: () => fetch("http://localhost:5000/users"),
       },
       {
         path: "/register",
         element: <Signup></Signup>,
+        loader: () => fetch("http://localhost:5000/users"),
       },
       {
         path: "/all-collections",
