@@ -55,36 +55,11 @@ const Login = () => {
     googleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
-        setUserEmail(user.email);
-        setLoginUserEmail(user.email);
-        const userHas = users.filter((us) => us.email === userEmail);
-        if (!userHas || !users) {
-          saveUser(user.displayName, user.email, user.photoURL);
-        } else {
-          toast.success("Google sign in successfully");
-          navigate(from, { replace: true });
-        }
+        toast.success("Google sign in successfully");
+        navigate(from, { replace: true });
       })
       .catch((e) => {
         toast.error(e.message);
-      });
-  };
-
-  const saveUser = (name, email, image) => {
-    const user = { name, email, image, status: "Member" };
-
-    fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoginUserEmail(email);
-        toast.success("User create successfully");
-        navigate(from, { replace: true });
       });
   };
 
@@ -126,7 +101,7 @@ const Login = () => {
         </form>
         <p className=" text-center text-xs pt-3">
           New to Doctor's Portal?
-          <Link to="/signup" className="pl-1 text-secondary">
+          <Link to="/register" className="pl-1 text-secondary">
             Create new account
           </Link>
         </p>

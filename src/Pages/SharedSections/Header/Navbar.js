@@ -102,9 +102,7 @@ const Navbar = () => {
           >
             {user?.uid ? (
               <>
-                <li>
-                  <Link>{user.displayName}</Link>
-                </li>
+                <li className="text-center">{user.displayName}</li>
                 <li>
                   <Link to="/profile">Profile</Link>
                 </li>

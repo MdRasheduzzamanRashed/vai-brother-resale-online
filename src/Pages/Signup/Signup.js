@@ -20,13 +20,13 @@ const Signup = () => {
   const imageHostKey = process.env.REACT_APP_imgbb_key;
 
   const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
+  const users = useLoaderData();
   const googleProvider = new GoogleAuthProvider();
   const [createdUserEmail, setCreatedUserEmail] = useState("");
   const [token] = useToken(createdUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
-  const users = useLoaderData();
   const from = location.state?.from.pathname || "/";
 
   if (token) {
@@ -75,14 +75,8 @@ const Signup = () => {
     googleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
-        setUserEmail(user.email);
-        const userHas = users.filter((us) => us.email === userEmail);
-        if (!userHas || !users) {
-          saveUser(user.displayName, user.email, user.photoURL);
-        } else {
-          toast.success("Google sign in successfully");
-          navigate(from, { replace: true });
-        }
+        toast.success("Google sign in successfully");
+        saveUser(user.displayName, user.email, user.photoURL);
       })
       .catch((e) => {
         toast.error(e.message);
@@ -92,17 +86,19 @@ const Signup = () => {
   const saveUser = (name, email, image) => {
     const user = { name, email, image, status: "Member" };
 
-    fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setCreatedUserEmail(email);
-        toast.success("User create successfully");
         navigate(from, { replace: true });
       });
   };

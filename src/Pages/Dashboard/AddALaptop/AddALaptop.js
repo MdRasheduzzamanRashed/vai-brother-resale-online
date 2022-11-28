@@ -106,19 +106,21 @@ const AddALaptop = () => {
       date: new Date(),
     };
     console.log(laptop);
-    fetch("http://localhost:5000/laptops", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(laptop),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(laptop),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         toast.success("One Laptop added successfully.");
-        navigate("/my-laptops");
+        navigate("/dashboard/my-laptops");
       });
   };
 
@@ -144,7 +146,7 @@ const AddALaptop = () => {
               className=" select-bordered select select-sm w-full mb-2"
             >
               {brands.map((brand) => (
-                <option>{brand.brand}</option>
+                <option key={brand._id}>{brand.brand}</option>
               ))}
             </select>
           </div>

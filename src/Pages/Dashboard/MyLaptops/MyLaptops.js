@@ -5,7 +5,6 @@ import { AuthContext } from "../../../context/AuthProvider";
 import ConfirmationModal from "../../SharedSections/ConfirmationModal/ConfirmationModal";
 import Loading from "../../SharedSections/Loading/Loading";
 
-
 const MyLaptops = () => {
   const { user } = useContext(AuthContext);
   const [deletingLaptop, setDeletingLaptop] = useState(null);
@@ -13,7 +12,7 @@ const MyLaptops = () => {
     setDeletingLaptop(null);
   };
 
-  const url = `http://localhost:5000/my-laptops?email=${user?.email}`;
+  const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/my-laptops?email=${user?.email}`;
 
   const {
     data: laptops = [],
@@ -37,12 +36,15 @@ const MyLaptops = () => {
   }
 
   const handleMakeSold = (id) => {
-    fetch(`http://localhost:5000/laptops/${id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -52,12 +54,15 @@ const MyLaptops = () => {
       });
   };
   const handleDeleteLaptop = (laptop) => {
-    fetch(`http://localhost:5000/laptops/${laptop._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${laptop._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
@@ -83,41 +88,33 @@ const MyLaptops = () => {
           </tr>
         </thead>
         <tbody>
-          {laptops.length > 0 ? (
-            <>
-              {laptops.map((laptop, i) => (
-                <tr className="hover" key={laptop._id}>
-                  <th>{i + 1}</th>
-                  <td>{laptop.brand}</td>
-                  <td>{laptop.model}</td>
-                  <td>{laptop.askingPrice}</td>
-                  <td>{laptop.processor}</td>
-                  <td>{laptop?.status}</td>
-                  <td>
-                    <label
-                      onClick={() => setDeletingLaptop(laptop)}
-                      htmlFor="confirmation-modal"
-                      className="btn btn-sm btn-error text-white"
-                    >
-                      Delete
-                    </label>
-                    {laptop?.status !== "Sold" && (
-                      <button
-                        onClick={() => handleMakeSold(laptop._id)}
-                        className="btn btn-active ml-2 btn-sm"
-                      >
-                        mark as sold
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </>
-          ) : (
-            <>
-              <p>No data found</p>
-            </>
-          )}
+          {laptops.map((laptop, i) => (
+            <tr className="hover" key={laptop._id}>
+              <th>{i + 1}</th>
+              <td>{laptop.brand}</td>
+              <td>{laptop.model}</td>
+              <td>{laptop.askingPrice}</td>
+              <td>{laptop.processor}</td>
+              <td>{laptop?.status}</td>
+              <td>
+                <label
+                  onClick={() => setDeletingLaptop(laptop)}
+                  htmlFor="confirmation-modal"
+                  className="btn btn-sm btn-error text-white"
+                >
+                  Delete
+                </label>
+                {laptop?.status !== "Sold" && (
+                  <button
+                    onClick={() => handleMakeSold(laptop._id)}
+                    className="btn btn-active ml-2 btn-sm"
+                  >
+                    mark as sold
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       {deletingLaptop && (

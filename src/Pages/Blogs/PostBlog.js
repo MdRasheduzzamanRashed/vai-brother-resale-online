@@ -37,14 +37,17 @@ const PostBlog = () => {
             date: new Date(),
           };
           console.log(blog);
-          fetch("http://localhost:5000/blogs", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-              authorization: `bearer ${localStorage.getItem("accessToken")}`,
-            },
-            body: JSON.stringify(blog),
-          })
+          fetch(
+            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/blogs",
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem("accessToken")}`,
+              },
+              body: JSON.stringify(blog),
+            }
+          )
             .then((res) => res.json())
             .then((result) => {
               console.log(result);
