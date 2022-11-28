@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { AuthContext } from "./../../context/AuthProvider";
-import Loading from "./../SharedSections/Loading/Loading";
-import ConfirmationModal from "./../SharedSections/ConfirmationModal/ConfirmationModal";
+import { AuthContext } from "../../../context/AuthProvider";
+import ConfirmationModal from "../../SharedSections/ConfirmationModal/ConfirmationModal";
+import Loading from "../../SharedSections/Loading/Loading";
+
 
 const MyLaptops = () => {
   const { user } = useContext(AuthContext);

@@ -5,12 +5,20 @@ import Brands from "../../Pages/Brands/Brands/Brands";
 import Brand from "../../Pages/Brands/Brands/Brand/Brand";
 import CardDetails from "../../utilities/CardDetails";
 import Blogs from "./../../Pages/Blogs/Blogs";
-import AddALaptop from "./../../Pages/AddALaptop/AddALaptop";
 import AllCollections from "./../../Pages/AllCollections/AllCollections";
 import Signup from "./../../Pages/Signup/Signup";
 import Login from "./../../Pages/Login/Login";
-import MyLaptops from "./../../Pages/MyLaptops/MyLaptops";
-import AllUsers from "./../../Pages/AllUsers/AllUsers";
+
+import PrivateRoutes from "./../PrivateRoutes/PrivateRoutes";
+import AdminRoutes from "../AdminRoutes/AdminRoutes";
+import DashboardLayout from "./../../Layouts/DashboardLayout";
+import DisplayError from "./../../Pages/SharedSections/DisplayError/DisplayError";
+import AddALaptop from "../../Pages/Dashboard/AddALaptop/AddALaptop";
+import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
+import MyLaptops from "../../Pages/Dashboard/MyLaptops/MyLaptops";
+import AllLaptops from "../../Pages/Dashboard/AllLaptops/AllLaptops";
+import AddABrand from './../../Pages/Dashboard/AddABrand/AddABrand';
+import Category from './../../Pages/Category/Category';
 
 const router = createBrowserRouter([
   {
@@ -44,18 +52,6 @@ const router = createBrowserRouter([
         element: <Blogs></Blogs>,
       },
       {
-        path: "/add-a-laptop",
-        element: <AddALaptop></AddALaptop>,
-      },
-      {
-        path: "/all-users",
-        element: <AllUsers></AllUsers>
-      },
-      {
-        path: "/my-laptops",
-        element: <MyLaptops></MyLaptops>,
-      },
-      {
         path: "/login",
         element: <Login></Login>,
         loader: () => fetch("http://localhost:5000/users"),
@@ -69,6 +65,65 @@ const router = createBrowserRouter([
         path: "/all-collections",
         element: <AllCollections></AllCollections>,
         loader: () => fetch("http://localhost:5000/laptops"),
+      },
+      {
+        path: "/categories/:category",
+        element: <Category></Category>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/laptops/categories/${params.category}`),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>
+    ),
+    errorElement: <DisplayError></DisplayError>,
+    children: [
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoutes>
+            <AddALaptop></AddALaptop>
+          </PrivateRoutes>
+        ),
+        loader: () => fetch("http://localhost:5000/brands"),
+      },
+      {
+        path: "/dashboard/my-laptops",
+        element: (
+          <PrivateRoutes>
+            <MyLaptops></MyLaptops>
+          </PrivateRoutes>
+        ),
+      },
+
+      {
+        path: "/dashboard/all-users",
+        element: (
+          <AdminRoutes>
+            <AllUsers></AllUsers>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/all-laptops",
+        element: (
+          <AdminRoutes>
+            <AllLaptops></AllLaptops>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/add-a-brand",
+        element: (
+          <AdminRoutes>
+            <AddABrand></AddABrand>
+          </AdminRoutes>
+        ),
       },
     ],
   },

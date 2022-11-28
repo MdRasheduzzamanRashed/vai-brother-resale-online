@@ -2,13 +2,10 @@ import React, { useContext } from "react";
 import logo from "../../../assets/logo/Vai Brother-01.png";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./../../../context/AuthProvider";
-import useAdmin from "./../../../hooks/useAdmin";
-import useMember from "./../../../hooks/useMember";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const [isAdmin] = useAdmin(user?.email);
-  const [isMember] = useMember(user?.email);
+
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -19,13 +16,14 @@ const Navbar = () => {
       .catch((e) => console.error(e));
   };
   const menuLists = (
-    <>
+    <React.Fragment>
       <li>
         <Link to="/">Home</Link>
       </li>
       <li>
         <Link to="/brands">Brands</Link>
       </li>
+
       <li>
         <Link to="/all-collections">All Collections</Link>
       </li>
@@ -33,44 +31,25 @@ const Navbar = () => {
         <Link>Category</Link>
         <ul className="p-2 h-44 bg-slate-300">
           <li>
-            <Link>Gaming Laptop</Link>
+            <Link to="/categories/gaming">Gaming</Link>
           </li>
           <li>
-            <Link>Laptop</Link>
+            <Link to="/categories/laptop">Laptop</Link>
           </li>
           <li>
-            <Link>Desktop</Link>
+            <Link to="/categories/desktop">Desktop</Link>
           </li>
         </ul>
       </li>
-
-      {isMember || isAdmin ? (
-        <>
-          <li>
-            <Link to="my-laptops">My Laptops</Link>
-          </li>
-        </>
-      ) : (
-        <></>
-      )}
-      {isAdmin ? (
-        <>
-          <li>
-            <Link to="/all-users">All Users</Link>
-          </li>
-        </>
-      ) : (
-        <></>
-      )}
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
-    </>
+    </React.Fragment>
   );
 
   return (
-    <div className="navbar">
-      <div className="navbar-start">
+    <div className="navbar justify-between">
+      <div>
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
@@ -102,7 +81,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuLists}</ul>
       </div>
-      <div className="navbar-end">
+      <div>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
@@ -126,9 +105,16 @@ const Navbar = () => {
                   <Link>{user.displayName}</Link>
                 </li>
                 <li>
-                  <Link to="/add-a-laptop">Add a laptop</Link>
+                  <Link to="/profile">Profile</Link>
                 </li>
-
+                <li>
+                  <label
+                    htmlFor="dashboard-drawer"
+                    className="drawer-button"
+                  >
+                    <Link to="/dashboard">Dashboard</Link>
+                  </label>
+                </li>
                 <li>
                   <button onClick={handleSignOut}>Logout</button>
                 </li>

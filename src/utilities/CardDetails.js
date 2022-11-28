@@ -12,6 +12,7 @@ const CardDetails = () => {
     condition,
     email,
     generation,
+    category,
     img1,
     img2,
     img3,
@@ -73,10 +74,15 @@ const CardDetails = () => {
             {cpu} {version} {generation}th gen
           </p>
           <p className="my-1">
+            <span className="font-bold">Category: </span>
+            {category}th gen
+          </p>
+          <p className="my-1">
             <span className="font-bold">Asking Price:</span> {askingPrice}
           </p>
           <p className="my-1">
-            <span className="font-bold">Buying Date: </span>{dob}
+            <span className="font-bold">Buying Date: </span>
+            {dob}
           </p>
           <p className="my-1">
             <span className="font-bold">Location:</span> {location}

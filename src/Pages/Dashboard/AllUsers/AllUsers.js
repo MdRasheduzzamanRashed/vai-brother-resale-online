@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import ConfirmationModal from "./../SharedSections/ConfirmationModal/ConfirmationModal";
+import ConfirmationModal from './../../SharedSections/ConfirmationModal/ConfirmationModal';
 
 const AllUsers = () => {
   const [deletingUser, setDeletingUser] = useState(null);

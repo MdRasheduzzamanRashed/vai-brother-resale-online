@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./../../context/AuthProvider";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const AddALaptop = () => {
   const {
@@ -14,7 +14,7 @@ const AddALaptop = () => {
   const [images, setImages] = useState([]);
   const imagesU = [];
   const imageHostKey = process.env.REACT_APP_imgbb_key;
-
+  const brands = useLoaderData();
   const navigate = useNavigate();
 
   const handleAddLaptop = (data) => {
@@ -110,6 +110,7 @@ const AddALaptop = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(laptop),
     })
@@ -122,7 +123,7 @@ const AddALaptop = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto">
+    <div className="mx-2 md:w-1/2 md:mx-auto">
       <h3 className="text-3xl text-center uppercase">Add a Laptop</h3>
       <form onSubmit={handleSubmit(handleAddLaptop)}>
         <label className="label">
@@ -142,16 +143,9 @@ const AddALaptop = () => {
               {...register("brand")}
               className=" select-bordered select select-sm w-full mb-2"
             >
-              <option>Apple</option>
-              <option>Asus</option>
-              <option>Dell</option>
-              <option>Lenovo</option>
-              <option>Acer</option>
-              <option>Hp</option>
-              <option>Samsung</option>
-              <option>Sony</option>
-              <option>DCL</option>
-              <option>Others</option>
+              {brands.map((brand) => (
+                <option>{brand.brand}</option>
+              ))}
             </select>
           </div>
           <div>
@@ -172,7 +166,7 @@ const AddALaptop = () => {
               {...register("category")}
               className=" select-bordered select select-sm w-full mb-2"
             >
-              <option>Gaming Laptop</option>
+              <option>Gaming</option>
               <option>Laptop</option>
               <option>Desktop</option>
             </select>
@@ -288,10 +282,10 @@ const AddALaptop = () => {
         <label className="label">
           <span className="label-text">Details</span>
         </label>
-        <input
+        <textarea
           {...register("details", { required: "Name is required" })}
           type="text"
-          className="input input-bordered input-sm w-full"
+          className=" textarea textarea-bordered w-full"
         />
         <label className="label">
           <span className="label-text">Photos</span>
