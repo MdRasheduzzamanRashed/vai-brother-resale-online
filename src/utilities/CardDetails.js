@@ -88,20 +88,29 @@ const CardDetails = () => {
             <span className="font-bold">Location:</span> {location}
           </p>
           <p className="my-1">
-            <span className="font-bold">Mobile:</span> {mobile}
-          </p>
-          <p className="my-1">
-            <span className="font-bold">Email:</span> {email}
-          </p>
-          <p className="my-1">
             <span className="font-bold">Condition:</span> {condition}
           </p>
           <p className="my-1">
             <span className="font-bold">Details:</span> {details}
           </p>
-          <button className="btn btn-primary btn-sm">
-            Make a schedule to meet
-          </button>
+          <label htmlFor="my-modal" className="btn">
+            Contact Details
+          </label>
+        </div>
+      </div>
+      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">
+            If you want to buy this or you have any query Please contact below:
+          </h3>
+          <p className="pt-4">Email: {email}</p>
+          <p className="pb-4">Mobile: {mobile}</p>
+          <div className="modal-action">
+            <label htmlFor="my-modal" className="btn">
+              Ok
+            </label>
+          </div>
         </div>
       </div>
     </div>

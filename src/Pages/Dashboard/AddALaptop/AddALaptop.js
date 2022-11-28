@@ -201,19 +201,15 @@ const AddALaptop = () => {
           </div>
           <div>
             <label className="label">
-              <span className="label-text">Generation</span>
+              <span className="label-text">Generation/Series</span>
             </label>
-            <select
-              {...register("generation")}
-              className=" select-bordered select select-sm w-full mb-2"
-            >
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>5000</option>
-              <option>7000</option>
-            </select>
+            <input
+              {...register("generation", {
+                required: "Generation is required",
+              })}
+              type="text"
+              className="input input-bordered input-sm w-full"
+            />
           </div>
           <div>
             <label className="label">

@@ -10,7 +10,7 @@ const Brands = () => {
   return (
     <div>
       <div>
-        <h3 className="my-10 text-4xl font-bold text-center uppercase  bg-slate-500 text-white py-2">
+        <h3 className="my-5 text-4xl font-bold text-center uppercase  bg-slate-500 text-white py-2">
           Brands
         </h3>
       </div>

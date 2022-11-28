@@ -76,6 +76,7 @@ const Signup = () => {
       .then((result) => {
         const user = result.user;
         toast.success("Google sign in successfully");
+        navigate(from, { replace: true });
         saveUser(user.displayName, user.email, user.photoURL);
       })
       .catch((e) => {

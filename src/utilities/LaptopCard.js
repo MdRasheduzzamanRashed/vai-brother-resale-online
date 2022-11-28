@@ -24,20 +24,20 @@ const LaptopCard = ({ laptop }) => {
         <figure>
           <div className="carousel w-full">
             <div id={image1} className="carousel-item w-full">
-              <img alt="" src={img1} className="w-full" />
+              <img alt="" src={img1} className="w-full h-96" />
             </div>
             <div id={image2} className="carousel-item w-full">
-              <img alt="" src={img2} className="w-full" />
+              <img alt="" src={img2} className="w-full h-96" />
             </div>
             <div id={image3} className="carousel-item w-full">
-              <img alt="" src={img3} className="w-full" />
+              <img alt="" src={img3} className="w-full h-96" />
             </div>
             <div id={image4} className="carousel-item w-full">
-              <img alt="" src={img4} className="w-full" />
+              <img alt="" src={img4} className="w-full h-96" />
             </div>
           </div>
         </figure>
-        <div className="flex justify-center pb-3 w-full gap-2">
+        <div className="flex justify-center pb-3 w-full gap-2 mt-3">
           <a href={`#${image1}`} className="btn btn-xs">
             1
           </a>

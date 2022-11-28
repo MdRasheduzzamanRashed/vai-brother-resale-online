@@ -73,50 +73,52 @@ const MyLaptops = () => {
   };
 
   return (
-    <div className="mt-20">
-      <h3 className="text-center text-4xl font-bold my-8">My Laptops</h3>
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Asking Price</th>
-            <th>Processor</th>
-            <th>Sell Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {laptops.map((laptop, i) => (
-            <tr className="hover" key={laptop._id}>
-              <th>{i + 1}</th>
-              <td>{laptop.brand}</td>
-              <td>{laptop.model}</td>
-              <td>{laptop.askingPrice}</td>
-              <td>{laptop.processor}</td>
-              <td>{laptop?.status}</td>
-              <td>
-                <label
-                  onClick={() => setDeletingLaptop(laptop)}
-                  htmlFor="confirmation-modal"
-                  className="btn btn-sm btn-error text-white"
-                >
-                  Delete
-                </label>
-                {laptop?.status !== "Sold" && (
-                  <button
-                    onClick={() => handleMakeSold(laptop._id)}
-                    className="btn btn-active ml-2 btn-sm"
-                  >
-                    mark as sold
-                  </button>
-                )}
-              </td>
+    <div>
+      <h3 className="text-center text-4xl font-bold mb-12">My Laptops</h3>
+      <div>
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Asking Price</th>
+              <th>Processor</th>
+              <th>Sell Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {laptops.map((laptop, i) => (
+              <tr className="hover" key={laptop._id}>
+                <th>{i + 1}</th>
+                <td>{laptop.brand}</td>
+                <td>{laptop.model}</td>
+                <td>{laptop.askingPrice}</td>
+                <td>{laptop.processor}</td>
+                <td>{laptop?.status}</td>
+                <td>
+                  <label
+                    onClick={() => setDeletingLaptop(laptop)}
+                    htmlFor="confirmation-modal"
+                    className="btn btn-sm btn-error text-white"
+                  >
+                    Delete
+                  </label>
+                  {laptop?.status !== "Sold" && (
+                    <button
+                      onClick={() => handleMakeSold(laptop._id)}
+                      className="btn btn-active ml-2 btn-sm"
+                    >
+                      mark as sold
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {deletingLaptop && (
         <ConfirmationModal
           title={"Are you sure you want to delete?"}
