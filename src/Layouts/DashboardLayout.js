@@ -22,15 +22,15 @@ const DashboardLayout = () => {
           <Outlet></Outlet>
         </div>
         <div className="drawer-side">
-          <label
-            htmlFor="dashboard-drawer"
-            className="drawer-overlay"
-          ></label>
-          <ul className="menu w-44 bg-slate-600 bg-opacity-30 text-white p-4 font-medium">
+          <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
+          <ul className="menu w-44 bg-slate-200 bg-opacity-30 p-4 font-medium">
             {isMember ? (
               <>
                 <li>
                   <Link to="/dashboard">Add A Laptop</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/post-blog">Post A Blog</Link>
                 </li>
                 <li>
                   <Link to="/dashboard/my-laptops">My Laptops</Link>
@@ -43,6 +43,9 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <Link to="/dashboard">Add A Laptop</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/post-blog">Post A Blog</Link>
                 </li>
                 <li>
                   <Link to="/dashboard/all-users">All Users</Link>

@@ -10,14 +10,14 @@ const Brands = () => {
   return (
     <div>
       <div>
-        <h3 className="my-8 text-4xl font-bold text-center uppercase  bg-slate-500 text-white py-2">
+        <h3 className="my-10 text-4xl font-bold text-center uppercase  bg-slate-500 text-white py-2">
           Brands
         </h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
         {brands.map((brandC) => (
           <BrandsCard
-            keys={brandC._id}
+            key={brandC._id}
             brandC={brandC}
             setBrandWise={setBrandWise}
           ></BrandsCard>

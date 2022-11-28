@@ -19,6 +19,8 @@ import MyLaptops from "../../Pages/Dashboard/MyLaptops/MyLaptops";
 import AllLaptops from "../../Pages/Dashboard/AllLaptops/AllLaptops";
 import AddABrand from './../../Pages/Dashboard/AddABrand/AddABrand';
 import Category from './../../Pages/Category/Category';
+import Profile from "../../Pages/Profile/Profile";
+import PostBlog from './../../Pages/Blogs/PostBlog';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/blogs",
         element: <Blogs></Blogs>,
+        loader: () => fetch("http://localhost:5000/blogs"),
       },
       {
         path: "/login",
@@ -70,7 +73,15 @@ const router = createBrowserRouter([
         path: "/categories/:category",
         element: <Category></Category>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/laptops/categories/${params.category}`),
+          fetch(`http://localhost:5000/categories/${params.category}`),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoutes>
+            <Profile></Profile>
+          </PrivateRoutes>
+        ),
       },
     ],
   },
@@ -97,6 +108,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyLaptops></MyLaptops>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/post-blog",
+        element: (
+          <PrivateRoutes>
+            <PostBlog></PostBlog>
           </PrivateRoutes>
         ),
       },
