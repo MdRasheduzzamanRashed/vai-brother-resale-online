@@ -33,7 +33,9 @@ const Login = () => {
   const { data: users = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
+      const res = await fetch(
+        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users"
+      );
       const data = await res.json();
       return data;
     },
@@ -60,7 +62,6 @@ const Login = () => {
     googleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user.email);
         setLoginUserEmail(user.email);
         setLoginError("");
         toast.success("Google sign in successfully");
@@ -72,13 +73,16 @@ const Login = () => {
             image: user.photoURL,
             status: "Member",
           };
-          fetch("http://localhost:5000/users", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(userInfo),
-          })
+          fetch(
+            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users",
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(userInfo),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {});
         }

@@ -24,31 +24,30 @@ const AddABrand = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
         if (imgData.success) {
           const brand = {
             brand: data.brand,
             details: data.details,
             img: imgData.data.url,
           };
-          console.log(brand);
-          fetch("http://localhost:5000/brands", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-              authorization: `bearer ${localStorage.getItem("accessToken")}`,
-            },
-            body: JSON.stringify(brand),
-          })
+          fetch(
+            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands",
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+                authorization: `bearer ${localStorage.getItem("accessToken")}`,
+              },
+              body: JSON.stringify(brand),
+            }
+          )
             .then((res) => res.json())
             .then((result) => {
-              console.log(result);
               toast.success("Brand added successfully.");
               navigate("/brands");
             });
         }
       });
-    // console.log(images);
   };
 
   return (

@@ -49,12 +49,17 @@ const router = createBrowserRouter([
         path: "/brands/:brand/:id",
         element: <CardDetails></CardDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/laptops/${params.id}`),
+          fetch(
+            `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${params.id}`
+          ),
       },
       {
         path: "/blogs",
         element: <Blogs></Blogs>,
-        loader: () => fetch("http://localhost:5000/blogs"),
+        loader: () =>
+          fetch(
+            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/blogs"
+          ),
       },
       {
         path: "/login",
@@ -72,7 +77,9 @@ const router = createBrowserRouter([
         path: "/categories/:category",
         element: <Category></Category>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.category}`),
+          fetch(
+            `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/categories/${params.category}`
+          ),
       },
       {
         path: "/profile",

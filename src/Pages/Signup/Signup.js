@@ -23,7 +23,9 @@ const Signup = () => {
   const { data: users = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
+      const res = await fetch(
+        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users"
+      );
       const data = await res.json();
       return data;
     },
@@ -31,8 +33,7 @@ const Signup = () => {
   if (token) {
     navigate("/");
   }
-  console.log(createdUserEmail);
-  console.log(token);
+
   const handleSignup = (data) => {
     const image = data.image[0];
     const formData = new FormData();
@@ -44,7 +45,6 @@ const Signup = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
         if (imgData.success) {
           const image = { image: imgData.data.url };
           createUser(data.email, data.password)
@@ -63,17 +63,18 @@ const Signup = () => {
                     image: image.image,
                     status: "Member",
                   };
-                  fetch("http://localhost:5000/users", {
-                    method: "POST",
-                    headers: {
-                      "content-type": "application/json",
-                    },
-                    body: JSON.stringify(profile),
-                  })
+                  fetch(
+                    "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users",
+                    {
+                      method: "POST",
+                      headers: {
+                        "content-type": "application/json",
+                      },
+                      body: JSON.stringify(profile),
+                    }
+                  )
                     .then((res) => res.json())
-                    .then((data) => {
-                      console.log(data);
-                    });
+                    .then((data) => {});
                 })
                 .catch((e) => {
                   toast.error(e.message);
@@ -100,13 +101,16 @@ const Signup = () => {
             image: user.photoURL,
             status: "Member",
           };
-          fetch("http://localhost:5000/users", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(userInfo),
-          })
+          fetch(
+            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users",
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(userInfo),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {});
         }

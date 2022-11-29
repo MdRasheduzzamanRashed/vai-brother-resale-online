@@ -11,7 +11,7 @@ const MyLaptops = () => {
   const closeModal = () => {
     setDeletingLaptop(null);
   };
-  const url = `http://localhost:5000/my-laptops?email=${user?.email}`;
+  const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/my-laptops?email=${user?.email}`;
 
   const {
     data: laptops = [],
@@ -34,12 +34,15 @@ const MyLaptops = () => {
     <Loading></Loading>;
   }
   const handleSold = (id) => {
-    fetch(`http://localhost:5000/laptops/${id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -48,12 +51,15 @@ const MyLaptops = () => {
         }
       });
 
-    fetch(`http://localhost:5000/adsItemSold/${id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/adsItemSold/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -63,24 +69,28 @@ const MyLaptops = () => {
       });
   };
   const handleAds = (laptop) => {
-    fetch("http://localhost:5000/ads", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(laptop),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/ads",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(laptop),
+      }
+    )
       .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      });
-    fetch(`http://localhost:5000/laptopsAds/${laptop._id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+      .then((result) => {});
+    fetch(
+      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptopsAds/${laptop._id}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -91,12 +101,15 @@ const MyLaptops = () => {
   };
 
   const handleDeleteLaptop = (laptop) => {
-    fetch(`http://localhost:5000/laptops/${laptop._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${laptop._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
@@ -150,7 +163,7 @@ const MyLaptops = () => {
                   )}
                 </td>
                 <td>
-                  {laptop?.ads === false && laptop?.status !=="Sold" ? (
+                  {laptop?.ads === false && laptop?.status !== "Sold" ? (
                     <button
                       onClick={() => handleAds(laptop)}
                       className="btn btn-active btn-sm"

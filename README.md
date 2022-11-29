@@ -6,8 +6,6 @@ One of the largest online resale markets in Bangladesh. on this website, you can
 
 This site is entirely user-friendly and ready to use type. You can choose your desired one without registration/login. When you try to make a call or contact with seller you have to create an account.
 
-
-
 ## Usage
 A user can add a laptop to sell or buy a laptop from many.
 we guarantee for best resale value and product.
@@ -17,6 +15,10 @@ we guarantee for best resale value and product.
 you can suggest for a better experience we appreciate your comment and suggestion
 
 Every suggestion are welcome. For significant changes, please email us at rased.cse.2016@gmail.com.
+
+#### For admin access
+ Email: 123@gmail.com
+ password: as12AS!@
 
 ## License
 free to use

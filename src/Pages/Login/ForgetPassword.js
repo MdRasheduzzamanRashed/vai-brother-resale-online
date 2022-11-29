@@ -13,7 +13,6 @@ const ForgetPassword = () => {
         toast("Password reset email sent!");
       })
       .catch((e) => console.error(e));
-    console.log(email);
   };
 
   return (

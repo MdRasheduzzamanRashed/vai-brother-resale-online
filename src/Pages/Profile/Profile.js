@@ -7,7 +7,7 @@ import Loading from "./../SharedSections/Loading/Loading";
 const Profile = () => {
   const { user } = useContext(AuthContext);
 
-  const url = `http://localhost:5000/my-laptops?email=${user?.email}`;
+  const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/my-laptops?email=${user?.email}`;
 
   const { data: laptops = [], isLoading } = useQuery({
     queryKey: ["laptops", user?.email],
@@ -25,7 +25,6 @@ const Profile = () => {
   if (isLoading) {
     <Loading></Loading>;
   }
-  console.log(laptops);
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">

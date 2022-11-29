@@ -10,7 +10,9 @@ const Brands = () => {
   const { data: brands = [], isLoading } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/brands");
+      const res = await fetch(
+        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"
+      );
       const data = await res.json();
       return data;
     },

@@ -8,7 +8,7 @@ const AllCollections = () => {
   const [size, setSize] = useState(10);
 
   useEffect(() => {
-    const url = `http://localhost:5000/laptopsPage?page=${page}&size=${size}`;
+    const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptopsPage?page=${page}&size=${size}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -16,7 +16,6 @@ const AllCollections = () => {
         setLaptops(data.laptops);
       });
   }, [page, size]);
-  console.log(laptops);
 
   const pages = Math.ceil(count / size);
 

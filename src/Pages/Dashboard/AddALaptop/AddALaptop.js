@@ -18,7 +18,9 @@ const AddALaptop = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/brands")
+    fetch(
+      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"
+    )
       .then((res) => res.json())
       .then((data) => {
         setBrands(data);
@@ -44,7 +46,6 @@ const AddALaptop = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
         if (imgData.success) {
           const image1 = { image: imgData.data.url };
           imagesU.push(image1);
@@ -56,7 +57,6 @@ const AddALaptop = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
         if (imgData.success) {
           const image2 = { image: imgData.data.url };
           imagesU.push(image2);
@@ -68,7 +68,6 @@ const AddALaptop = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
         if (imgData.success) {
           const image3 = { image: imgData.data.url };
           imagesU.push(image3);
@@ -80,15 +79,12 @@ const AddALaptop = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        // console.log(imgData);
         if (imgData.success) {
           const image4 = { image: imgData.data.url };
           imagesU.push(image4);
-          // console.log(imagesU);
         }
         setImages(imagesU);
       });
-    console.log(imagesU);
     const laptop = {
       email: user.email,
       name: user.displayName,
@@ -114,15 +110,17 @@ const AddALaptop = () => {
       img4: images[3].image,
       date: new Date(),
     };
-    console.log(laptop);
-    fetch("http://localhost:5000/laptops", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(laptop),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(laptop),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         toast.success("One Laptop added successfully.");

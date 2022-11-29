@@ -3,7 +3,6 @@ import { useLoaderData } from "react-router-dom";
 
 const CardDetails = () => {
   const laptopDetails = useLoaderData();
-  console.log(laptopDetails);
   const {
     brand,
     model,

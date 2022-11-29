@@ -9,7 +9,9 @@ const Home = () => {
   const { data: ads = [], isLoading } = useQuery({
     queryKey: ["ads"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/ads");
+      const res = await fetch(
+        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/ads"
+      );
       const data = await res.json();
       return data;
     },
