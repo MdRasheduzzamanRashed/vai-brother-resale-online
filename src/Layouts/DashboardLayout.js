@@ -23,7 +23,7 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu w-44 bg-slate-200 bg-opacity-30 p-4 font-medium">
+          <ul className="menu w-44 bg-slate-200 bg-opacity-30 p-4 font-medium gap-3">
             {isMember ? (
               <>
                 <li>

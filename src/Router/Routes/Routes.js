@@ -21,31 +21,24 @@ import AddABrand from "./../../Pages/Dashboard/AddABrand/AddABrand";
 import Category from "./../../Pages/Category/Category";
 import Profile from "../../Pages/Profile/Profile";
 import PostBlog from "./../../Pages/Blogs/PostBlog";
+import Advertisement from "./../../Pages/Home/Advertisement/Advertisement";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    loader: () =>
-      fetch(
-        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"
-      ),
     children: [
       {
         path: "/",
         element: <Home></Home>,
-        loader: () =>
-          fetch(
-            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"
-          ),
+      },
+      {
+        path: "/",
+        element: <Advertisement></Advertisement>,
       },
       {
         path: "/brands",
         element: <Brands></Brands>,
-        loader: () =>
-          fetch(
-            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"
-          ),
       },
 
       {
@@ -56,33 +49,20 @@ const router = createBrowserRouter([
         path: "/brands/:brand/:id",
         element: <CardDetails></CardDetails>,
         loader: ({ params }) =>
-          fetch(
-            `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${params.id}`
-          ),
+          fetch(`http://localhost:5000/laptops/${params.id}`),
       },
       {
         path: "/blogs",
         element: <Blogs></Blogs>,
-        loader: () =>
-          fetch(
-            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/blogs"
-          ),
+        loader: () => fetch("http://localhost:5000/blogs"),
       },
       {
         path: "/login",
         element: <Login></Login>,
-        loader: () =>
-          fetch(
-            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users"
-          ),
       },
       {
         path: "/register",
         element: <Signup></Signup>,
-        loader: () =>
-          fetch(
-            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users"
-          ),
       },
       {
         path: "/all-collections",
@@ -92,9 +72,7 @@ const router = createBrowserRouter([
         path: "/categories/:category",
         element: <Category></Category>,
         loader: ({ params }) =>
-          fetch(
-            `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/categories/${params.category}`
-          ),
+          fetch(`http://localhost:5000/categories/${params.category}`),
       },
       {
         path: "/profile",
@@ -113,7 +91,6 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoutes>
     ),
-    errorElement: <DisplayError></DisplayError>,
     children: [
       {
         path: "/dashboard",
@@ -122,10 +99,6 @@ const router = createBrowserRouter([
             <AddALaptop></AddALaptop>
           </PrivateRoutes>
         ),
-        loader: () =>
-          fetch(
-            "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"
-          ),
       },
       {
         path: "/dashboard/my-laptops",

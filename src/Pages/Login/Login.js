@@ -11,27 +11,33 @@ import { AuthContext } from "../../context/AuthProvider";
 import ForgetPassword from "./ForgetPassword";
 import useToken from "./../../hooks/useToken";
 import toast from "react-hot-toast";
+import Loading from "../SharedSections/Loading/Loading";
+import { useQuery } from "@tanstack/react-query";
 const Login = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
   const { signIn, googleSignIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   const googleProvider = new GoogleAuthProvider();
-
   const [loginUserEmail, setLoginUserEmail] = useState("");
   const [token] = useToken(loginUserEmail);
-
-  const [userEmail, setUserEmail] = useState("");
-  const users = useLoaderData();
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const from = location.state?.from.pathname || "/";
+
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/users");
+      const data = await res.json();
+      return data;
+    },
+  });
 
   if (token) {
     navigate(from, { replace: true });
@@ -43,7 +49,6 @@ const Login = () => {
         const user = result.user;
         setLoginUserEmail(data.email);
         setLoginError("");
-        navigate(from, { replace: true });
       })
       .catch((e) => {
         console.error(e);
@@ -55,8 +60,28 @@ const Login = () => {
     googleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
+        console.log(user.email);
+        setLoginUserEmail(user.email);
+        setLoginError("");
         toast.success("Google sign in successfully");
-        navigate(from, { replace: true });
+        const checkEmail = users.find((us) => user.email === us.email);
+        if (!checkEmail) {
+          const userInfo = {
+            name: user.displayName,
+            email: user.email,
+            image: user.photoURL,
+            status: "Member",
+          };
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo),
+          })
+            .then((res) => res.json())
+            .then((data) => {});
+        }
       })
       .catch((e) => {
         toast.error(e.message);

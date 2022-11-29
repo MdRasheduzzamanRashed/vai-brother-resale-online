@@ -11,24 +11,19 @@ const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch(
-        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users"
-      );
+      const res = await fetch("http://localhost:5000/users");
       const data = await res.json();
       return data;
     },
   });
 
   const handleMakeAdmin = (id) => {
-    fetch(
-      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users/admin/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5000/users/admin/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -38,15 +33,12 @@ const AllUsers = () => {
       });
   };
   const handleDeleteUser = (user) => {
-    fetch(
-      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users/${user._id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5000/users/${user._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

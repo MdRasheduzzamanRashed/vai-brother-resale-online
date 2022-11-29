@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import Loading from "../SharedSections/Loading/Loading";
 import LaptopCard from "./../../utilities/LaptopCard";
 
 const AllCollections = () => {
@@ -10,7 +8,7 @@ const AllCollections = () => {
   const [size, setSize] = useState(10);
 
   useEffect(() => {
-    const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptopsPage?page=${page}&size=${size}`;
+    const url = `http://localhost:5000/laptopsPage?page=${page}&size=${size}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

@@ -1,15 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Link,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
 import useToken from "./../../hooks/useToken";
+import { useQuery } from "@tanstack/react-query";
 
 const Signup = () => {
   const {
@@ -20,19 +16,23 @@ const Signup = () => {
   const imageHostKey = process.env.REACT_APP_imgbb_key;
 
   const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
-  const users = useLoaderData();
   const googleProvider = new GoogleAuthProvider();
   const [createdUserEmail, setCreatedUserEmail] = useState("");
   const [token] = useToken(createdUserEmail);
-  const location = useLocation();
   const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState("");
-  const from = location.state?.from.pathname || "/";
-
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/users");
+      const data = await res.json();
+      return data;
+    },
+  });
   if (token) {
     navigate("/");
   }
-
+  console.log(createdUserEmail);
+  console.log(token);
   const handleSignup = (data) => {
     const image = data.image[0];
     const formData = new FormData();
@@ -49,7 +49,7 @@ const Signup = () => {
           const image = { image: imgData.data.url };
           createUser(data.email, data.password)
             .then((result) => {
-              const user = result.user;
+              setCreatedUserEmail(data.email);
               toast.success("User create successfully");
               const userInfo = {
                 displayName: data.name,
@@ -57,12 +57,27 @@ const Signup = () => {
               };
               updateUser(userInfo)
                 .then(() => {
-                  saveUser(data.name, data.email, image.image);
+                  const profile = {
+                    name: data.name,
+                    email: data.email,
+                    image: image.image,
+                    status: "Member",
+                  };
+                  fetch("http://localhost:5000/users", {
+                    method: "POST",
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                    body: JSON.stringify(profile),
+                  })
+                    .then((res) => res.json())
+                    .then((data) => {
+                      console.log(data);
+                    });
                 })
                 .catch((e) => {
                   toast.error(e.message);
                 });
-              console.log(userInfo);
             })
             .catch((e) => {
               toast.error(e.message);
@@ -75,32 +90,29 @@ const Signup = () => {
     googleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
+        setCreatedUserEmail(user.email);
         toast.success("Google sign in successfully");
-        navigate(from, { replace: true });
-        saveUser(user.displayName, user.email, user.photoURL);
+        const checkEmail = users.find((us) => user.email === us.email);
+        if (!checkEmail) {
+          const userInfo = {
+            name: user.displayName,
+            email: user.email,
+            image: user.photoURL,
+            status: "Member",
+          };
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userInfo),
+          })
+            .then((res) => res.json())
+            .then((data) => {});
+        }
       })
       .catch((e) => {
         toast.error(e.message);
-      });
-  };
-
-  const saveUser = (name, email, image) => {
-    const user = { name, email, image, status: "Member" };
-
-    fetch(
-      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCreatedUserEmail(email);
-        navigate(from, { replace: true });
       });
   };
 

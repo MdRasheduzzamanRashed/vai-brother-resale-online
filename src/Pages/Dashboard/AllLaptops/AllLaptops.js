@@ -11,24 +11,19 @@ const AllLaptops = () => {
   const { data: laptops = [], refetch } = useQuery({
     queryKey: ["laptops"],
     queryFn: async () => {
-      const res = await fetch(
-        "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops"
-      );
+      const res = await fetch("http://localhost:5000/laptops");
       const data = await res.json();
       return data;
     },
   });
 
   const handleDeleteUser = (laptop) => {
-    fetch(
-      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${laptop._id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5000/laptops/${laptop._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

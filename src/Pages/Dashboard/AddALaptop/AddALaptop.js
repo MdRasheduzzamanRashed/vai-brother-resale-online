@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const AddALaptop = () => {
@@ -11,12 +11,19 @@ const AddALaptop = () => {
     handleSubmit,
   } = useForm();
   const { user } = useContext(AuthContext);
+  const [brands, setBrands] = useState([]);
   const [images, setImages] = useState([]);
   const imagesU = [];
   const imageHostKey = process.env.REACT_APP_imgbb_key;
-  const brands = useLoaderData();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetch("http://localhost:5000/brands")
+      .then((res) => res.json())
+      .then((data) => {
+        setBrands(data);
+      });
+  }, []);
   const handleAddLaptop = (data) => {
     const image1 = data.image1[0];
     const image2 = data.image2[0];
@@ -81,23 +88,25 @@ const AddALaptop = () => {
         }
         setImages(imagesU);
       });
-    // console.log(images);
+    console.log(imagesU);
     const laptop = {
-      brand: data.brand,
-      details: data.details,
-      dob: data.dob,
       email: user.email,
-      generation: data.generation,
-      gpu: data.gpu,
-      model: data.model,
-      category: data.category,
       name: user.displayName,
+      brand: data.brand,
+      model: data.model,
+      gpu: data.gpu,
+      processor: data.processor,
       version: data.version,
+      generation: data.generation,
+      category: data.category,
+      details: data.details,
+      status: "Available",
+      ads: false,
+      dob: data.dob,
       location: data.location,
       condition: data.condition,
       askingPrice: data.askingPrice,
       newPrice: data.newPrice,
-      processor: data.processor,
       mobile: data.mobile,
       img1: images[0].image,
       img2: images[1].image,
@@ -106,17 +115,14 @@ const AddALaptop = () => {
       date: new Date(),
     };
     console.log(laptop);
-    fetch(
-      "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(laptop),
-      }
-    )
+    fetch("http://localhost:5000/laptops", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(laptop),
+    })
       .then((res) => res.json())
       .then((result) => {
         toast.success("One Laptop added successfully.");

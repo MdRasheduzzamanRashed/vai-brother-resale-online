@@ -5,9 +5,7 @@ const useMember = (email) => {
   const [isMemberLoading, setIsMemberLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(
-        `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/users/member/${email}`
-      )
+      fetch(`http://localhost:5000/users/member/${email}`)
         .then((res) => res.json())
         .then((data) => {
           setIsMember(data.isMember);

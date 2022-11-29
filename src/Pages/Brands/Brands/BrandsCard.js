@@ -7,9 +7,9 @@ const BrandsCard = ({ brandC, setBrandWise }) => {
   const { data } = useQuery({
     queryKey: [("brand", brand)],
     queryFn: () =>
-      fetch(
-        `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brand?brand=${brand}`
-      ).then((res) => res.json()),
+      fetch(`http://localhost:5000/brand?brand=${brand}`).then((res) =>
+        res.json()
+      ),
   });
 
   return (

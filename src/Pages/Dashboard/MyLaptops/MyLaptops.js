@@ -11,8 +11,7 @@ const MyLaptops = () => {
   const closeModal = () => {
     setDeletingLaptop(null);
   };
-
-  const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/my-laptops?email=${user?.email}`;
+  const url = `http://localhost:5000/my-laptops?email=${user?.email}`;
 
   const {
     data: laptops = [],
@@ -34,35 +33,70 @@ const MyLaptops = () => {
   if (isLoading) {
     <Loading></Loading>;
   }
-
-  const handleMakeSold = (id) => {
-    fetch(
-      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    )
+  const handleSold = (id) => {
+    fetch(`http://localhost:5000/laptops/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          toast.success("Successfully create admin");
+          toast.success("Successfully sold");
+          refetch();
+        }
+      });
+
+    fetch(`http://localhost:5000/adsItemSold/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Ads off!");
           refetch();
         }
       });
   };
+  const handleAds = (laptop) => {
+    fetch("http://localhost:5000/ads", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(laptop),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      });
+    fetch(`http://localhost:5000/laptopsAds/${laptop._id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Successfully sold");
+          refetch();
+        }
+      });
+  };
+
   const handleDeleteLaptop = (laptop) => {
-    fetch(
-      `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptops/${laptop._id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5000/laptops/${laptop._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
@@ -86,6 +120,7 @@ const MyLaptops = () => {
               <th>Processor</th>
               <th>Sell Status</th>
               <th>Action</th>
+              <th>Advertisement</th>
             </tr>
           </thead>
           <tbody>
@@ -107,11 +142,23 @@ const MyLaptops = () => {
                   </label>
                   {laptop?.status !== "Sold" && (
                     <button
-                      onClick={() => handleMakeSold(laptop._id)}
+                      onClick={() => handleSold(laptop._id)}
                       className="btn btn-active ml-2 btn-sm"
                     >
                       mark as sold
                     </button>
+                  )}
+                </td>
+                <td>
+                  {laptop?.ads === false && laptop?.status !=="Sold" ? (
+                    <button
+                      onClick={() => handleAds(laptop)}
+                      className="btn btn-active btn-sm"
+                    >
+                      Advertisement
+                    </button>
+                  ) : (
+                    "OFF"
                   )}
                 </td>
               </tr>

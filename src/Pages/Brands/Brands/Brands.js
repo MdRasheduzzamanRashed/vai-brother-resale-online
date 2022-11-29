@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import BrandsCard from "./BrandsCard";
-import { useLoaderData } from "react-router-dom";
 import LaptopCard from "./../../../utilities/LaptopCard";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../SharedSections/Loading/Loading";
 
 const Brands = () => {
-  const brands = useLoaderData();
   const [brandWise, setBrandWise] = useState([]);
-  console.log();
+
+  const { data: brands = [], isLoading } = useQuery({
+    queryKey: ["brands"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/brands");
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    <Loading></Loading>;
+  }
+
   return (
     <div>
       <div>
