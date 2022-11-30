@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
@@ -14,7 +14,7 @@ const Signup = () => {
     handleSubmit,
   } = useForm();
   const imageHostKey = process.env.REACT_APP_imgbb_key;
-
+  useToken("Sign Up");
   const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const [createdUserEmail, setCreatedUserEmail] = useState("");

@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../../context/AuthProvider";
 import ConfirmationModal from "../../SharedSections/ConfirmationModal/ConfirmationModal";
 import Loading from "../../SharedSections/Loading/Loading";
+import useTitle from "./../../../hooks/useTitle";
 
 const MyLaptops = () => {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const MyLaptops = () => {
   const closeModal = () => {
     setDeletingLaptop(null);
   };
+  useTitle("My Laptops");
   const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/my-laptops?email=${user?.email}`;
 
   const {

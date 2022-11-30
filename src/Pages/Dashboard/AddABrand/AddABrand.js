@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import useTitle from "./../../../hooks/useTitle";
 
 const AddABrand = () => {
   const {
@@ -10,7 +11,7 @@ const AddABrand = () => {
     handleSubmit,
   } = useForm();
   const imageHostKey = process.env.REACT_APP_imgbb_key;
-
+  useTitle("Add A Brand");
   const navigate = useNavigate();
 
   const handleAddBrand = (data) => {

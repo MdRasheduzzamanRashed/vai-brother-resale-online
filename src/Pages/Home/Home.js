@@ -4,8 +4,10 @@ import Banner from "./Banner/Banner";
 import Advertisement from "./Advertisement/Advertisement";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "./../SharedSections/Loading/Loading";
+import useTitle from "./../../hooks/useTitle";
 
 const Home = () => {
+  useTitle("Home");
   const { data: ads = [], isLoading } = useQuery({
     queryKey: ["ads"],
     queryFn: async () => {

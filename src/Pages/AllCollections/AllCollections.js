@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import LaptopCard from "./../../utilities/LaptopCard";
+import useTitle from "./../../hooks/useTitle";
 
 const AllCollections = () => {
   const [laptops, setLaptops] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-
+  useTitle("All Collections");
+  
   useEffect(() => {
     const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/laptopsPage?page=${page}&size=${size}`;
     fetch(url)

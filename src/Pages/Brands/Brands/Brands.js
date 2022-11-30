@@ -3,10 +3,11 @@ import BrandsCard from "./BrandsCard";
 import LaptopCard from "./../../../utilities/LaptopCard";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../SharedSections/Loading/Loading";
+import useTitle from "./../../../hooks/useTitle";
 
 const Brands = () => {
   const [brandWise, setBrandWise] = useState([]);
-
+  useTitle("Brands");
   const { data: brands = [], isLoading } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {

@@ -2,12 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmationModal from "./../../SharedSections/ConfirmationModal/ConfirmationModal";
+import useTitle from "./../../../hooks/useTitle";
 
 const AllUsers = () => {
   const [deletingUser, setDeletingUser] = useState(null);
   const closeModal = () => {
     setDeletingUser(null);
   };
+  useTitle("All Users");
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {

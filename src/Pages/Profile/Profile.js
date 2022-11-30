@@ -3,10 +3,11 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./../../context/AuthProvider";
 import Loading from "./../SharedSections/Loading/Loading";
+import useTitle from "./../../hooks/useTitle";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-
+  useTitle(user.displayName);
   const url = `https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/my-laptops?email=${user?.email}`;
 
   const { data: laptops = [], isLoading } = useQuery({

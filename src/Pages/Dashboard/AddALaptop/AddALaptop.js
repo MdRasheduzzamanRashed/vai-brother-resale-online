@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
+import useTitle from "./../../../hooks/useTitle";
 
 const AddALaptop = () => {
   const {
@@ -16,7 +17,7 @@ const AddALaptop = () => {
   const imagesU = [];
   const imageHostKey = process.env.REACT_APP_imgbb_key;
   const navigate = useNavigate();
-
+  useTitle("Add A Laptop");
   useEffect(() => {
     fetch(
       "https://b612-used-products-resale-server-side-md-rasheduzzaman-rashed.vercel.app/brands"

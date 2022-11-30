@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-hot-toast";
+import useTitle from "./../../hooks/useTitle";
 
 const ForgetPassword = () => {
   const { forgetPassword } = useContext(AuthContext);
+  useTitle("Forget password");
   const handleReset = (e) => {
     e.preventDefault();
     const form = e.target;

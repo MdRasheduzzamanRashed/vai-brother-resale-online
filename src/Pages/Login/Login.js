@@ -1,17 +1,11 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Link,
-  useLoaderData,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import ForgetPassword from "./ForgetPassword";
 import useToken from "./../../hooks/useToken";
 import toast from "react-hot-toast";
-import Loading from "../SharedSections/Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 const Login = () => {
   const {
@@ -24,7 +18,7 @@ const Login = () => {
   const googleProvider = new GoogleAuthProvider();
   const [loginUserEmail, setLoginUserEmail] = useState("");
   const [token] = useToken(loginUserEmail);
-
+  useToken("Login");
   const location = useLocation();
   const navigate = useNavigate();
 
