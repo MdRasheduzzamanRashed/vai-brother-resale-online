@@ -25,16 +25,16 @@ const AdvertisementCard = ({ad}) => {
         <figure>
           <div className="carousel w-full">
             <div id={image1} className="carousel-item w-full">
-              <img alt="" src={img1} className="w-full h-96" />
+              <img alt="" src={img1} className="w-full" />
             </div>
             <div id={image2} className="carousel-item w-full">
-              <img alt="" src={img2} className="w-full h-96" />
+              <img alt="" src={img2} className="w-full" />
             </div>
             <div id={image3} className="carousel-item w-full">
-              <img alt="" src={img3} className="w-full h-96" />
+              <img alt="" src={img3} className="w-full" />
             </div>
             <div id={image4} className="carousel-item w-full">
-              <img alt="" src={img4} className="w-full h-96" />
+              <img alt="" src={img4} className="w-full" />
             </div>
           </div>
         </figure>
@@ -52,7 +52,7 @@ const AdvertisementCard = ({ad}) => {
             4
           </a>
         </div>
-        <div className="card-body">
+        <div className="card-body p-0">
           <h2 className="card-title">Model: {model}</h2>
           <p>Brand: {brand}</p>
           <p>Asking Price: {askingPrice}</p>
