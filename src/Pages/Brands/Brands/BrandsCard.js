@@ -19,7 +19,7 @@ const BrandsCard = ({ brandC, setBrandWise }) => {
       </figure>
       <div className="card-body hover:bg-slate-900 hover:bg-opacity-60 rounded-xl">
         <h2 className="card-title uppercase">{brand}</h2>
-        <p className=" text-justify">{details}</p>
+        <p>{details}</p>
         <div className="card-actions justify-center items-center">
           <p>Available Products: {data?.length}</p>
           <button

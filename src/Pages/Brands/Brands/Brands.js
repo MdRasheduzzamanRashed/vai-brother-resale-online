@@ -24,7 +24,7 @@ const Brands = () => {
   }
 
   return (
-    <div>
+    <div data-theme="luxury" className="p-5">
       <div>
         <h3 className="my-5 text-4xl font-bold text-center uppercase   py-2">
           Brands
