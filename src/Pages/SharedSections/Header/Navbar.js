@@ -22,7 +22,7 @@ const Navbar = () => {
       </li>
       <li>
         <Link>Category</Link>
-        <ul className="p-2 bg-white z-10">
+        <ul className="p-2 bg-primary z-10">
           <li>
             <Link to="/categories/gaming">Gaming</Link>
           </li>

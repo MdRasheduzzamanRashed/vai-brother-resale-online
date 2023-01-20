@@ -4,6 +4,7 @@ import LaptopCard from "./../../../utilities/LaptopCard";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../SharedSections/Loading/Loading";
 import useTitle from "./../../../hooks/useTitle";
+import AllCollections from "../../AllCollections/AllCollections";
 
 const Brands = () => {
   const [brandWise, setBrandWise] = useState([]);
@@ -18,7 +19,6 @@ const Brands = () => {
       return data;
     },
   });
-
   if (isLoading) {
     <Loading></Loading>;
   }
@@ -26,11 +26,11 @@ const Brands = () => {
   return (
     <div>
       <div>
-        <h3 className="my-5 text-4xl font-bold text-center uppercase  bg-slate-500 text-white py-2">
+        <h3 className="my-5 text-4xl font-bold text-center uppercase   py-2">
           Brands
         </h3>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div className="flex flex-wrap gap-3 justify-evenly">
         {brands.map((brandC) => (
           <BrandsCard
             key={brandC._id}
@@ -42,7 +42,7 @@ const Brands = () => {
       {brandWise.length > 0 ? (
         <>
           <div className="mt-5">
-            <h3 className=" text-3xl text-center font-bold bg-slate-500 text-white py-2 my-3">
+            <h3 className=" text-3xl text-center font-bold  py-2 my-3">
               {brandWise[0]?.brand}
             </h3>
             <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -53,7 +53,9 @@ const Brands = () => {
           </div>
         </>
       ) : (
-        <></>
+          <>
+          <AllCollections></AllCollections>
+          </>
       )}
     </div>
   );

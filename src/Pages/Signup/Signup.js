@@ -121,9 +121,9 @@ const Signup = () => {
   };
 
   return (
-    <div className=" my-60">
-      <div className=" w-96 p-7 mx-auto shadow-lg rounded-lg">
-        <h2 className="text-2xl text-center mb-9">Register Now</h2>
+    <div className="my-10">
+      <div className="w-full md:w-2/3 lg:w-2/5 p-2 mx-auto shadow-lg rounded-lg">
+        <h2 className="text-3xl text-center mb-9">Register Now</h2>
         <form onSubmit={handleSubmit(handleSignup)}>
           <label className="label">
             <span className="label-text">Name</span>
@@ -179,18 +179,18 @@ const Signup = () => {
             type="file"
             className="mb-2 w-full"
           />
-          <input type="submit" className="w-full btn" value="SIGN UP" />
+          <input type="submit" className="w-full btn btn-primary" value="SIGN UP" />
         </form>
         <p className=" text-center text-xs pt-3">
           Already have an account?
-          <Link to="/login" className="pl-1 text-secondary">
+          <Link to="/login" className="pl-1 text-primary">
             Login
           </Link>
         </p>
         <div className=" divider">OR</div>
         <button
           onClick={handleGoogleSignIn}
-          className="btn btn-ghost btn-outline uppercase w-full"
+          className="btn btn-accent uppercase w-full"
         >
           Continue With google
         </button>

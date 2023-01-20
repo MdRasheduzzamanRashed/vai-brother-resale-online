@@ -21,7 +21,7 @@ const Advertisement = () => {
   const onAirAds = ads.filter((ad) => ad.status !== "Sold");
   return (
     <div>
-      <h2 className="text-3xl text-center font-medium bg-slate-500 text-white py-2 mb-3">
+      <h2 className="text-3xl text-center font-medium py-2 mb-3">
         Advertisement
       </h2>
       <div>

@@ -13,7 +13,7 @@ const BrandsCard = ({ brandC, setBrandWise }) => {
   });
 
   return (
-    <div className="card shadow-xl image-full">
+    <div className="card w-96 shadow-xl image-full">
       <figure>
         <img className="w-full" src={img} alt="Brand" />
       </figure>

@@ -25,7 +25,7 @@ const Home = () => {
   const onAirAds = ads.filter((ad) => ad.status !== "Sold");
   return (
     <div>
-      <div className=" grid grid-cols-4 gap-2">
+      <div className="grid md:grid-cols-4 gap-2">
         {onAirAds.length > 0 ? (
           <div className="col-span-3">
             <Banner></Banner>

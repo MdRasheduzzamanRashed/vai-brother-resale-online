@@ -30,7 +30,7 @@ const CardDetails = () => {
   const image4 = _id + "s";
 
   return (
-    <div className="hero bg-base-200">
+    <div className="hero">
       <div className="hero-content flex-col lg:flex-row">
         <div className="w-1/2">
           <div className="carousel w-full rounded-2xl">
@@ -89,10 +89,10 @@ const CardDetails = () => {
           <p className="my-1">
             <span className="font-bold">Condition:</span> {condition}
           </p>
-          <p className="my-1">
+          <p className="my-1 text-justify">
             <span className="font-bold">Details:</span> {details}
           </p>
-          <label htmlFor="my-modal" className="btn">
+          <label htmlFor="my-modal" className="btn btn-primary">
             Contact Details
           </label>
         </div>
@@ -106,7 +106,7 @@ const CardDetails = () => {
           <p className="pt-4">Email: {email}</p>
           <p className="pb-4">Mobile: {mobile}</p>
           <div className="modal-action">
-            <label htmlFor="my-modal" className="btn">
+            <label htmlFor="my-modal" className="btn btn-secondary">
               Ok
             </label>
           </div>
