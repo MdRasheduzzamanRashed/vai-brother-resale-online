@@ -24,9 +24,9 @@ const Brands = () => {
   }
 
   return (
-    <div data-theme="luxury" className="p-5">
+    <div className="py-5">
       <div>
-        <h3 className="my-5 text-4xl font-bold text-center uppercase   py-2">
+        <h3 className="my-5 bg-accent text-4xl font-bold text-center uppercase py-2">
           Brands
         </h3>
       </div>
@@ -53,9 +53,9 @@ const Brands = () => {
           </div>
         </>
       ) : (
-          <>
+        <>
           <AllCollections></AllCollections>
-          </>
+        </>
       )}
     </div>
   );

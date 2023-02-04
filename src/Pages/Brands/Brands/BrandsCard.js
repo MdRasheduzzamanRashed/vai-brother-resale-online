@@ -13,15 +13,18 @@ const BrandsCard = ({ brandC, setBrandWise }) => {
   });
 
   return (
-    <div className="card w-96 shadow-xl image-full">
+    <div data-theme="luxury" className="card w-96 shadow-xl image-full">
       <figure>
         <img className="w-full" src={img} alt="Brand" />
       </figure>
-      <div className="card-body hover:bg-slate-900 hover:bg-opacity-60 rounded-xl">
+      <div className="card-body rounded-xl">
         <h2 className="card-title uppercase">{brand}</h2>
         <p>{details}</p>
         <div className="card-actions justify-center items-center">
-          <p>Available Products: {data?.length}</p>
+          <p>
+            Available Products:
+            <span className="font-bold"> {data?.length}</span>
+          </p>
           <button
             className="btn btn-primary btn-sm"
             onClick={() => setBrandWise(data)}

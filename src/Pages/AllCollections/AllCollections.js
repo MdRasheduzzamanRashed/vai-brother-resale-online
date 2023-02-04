@@ -23,7 +23,9 @@ const AllCollections = () => {
 
   return (
     <div>
-      <h3 className="my-5 text-xl md:text-3xl lg:text-4xl font-bold text-center uppercase py-2">
+      <h3
+        className="my-5 bg-accent text-xl md:text-3xl lg:text-4xl font-bold text-center uppercase py-2"
+      >
         Choose your desire laptop
       </h3>
       <div className="flex flex-wrap justify-evenly gap-3">

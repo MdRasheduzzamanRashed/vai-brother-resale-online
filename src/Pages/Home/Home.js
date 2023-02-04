@@ -37,12 +37,10 @@ const Home = () => {
             <Brands></Brands>
           </div>
         )}
-        {onAirAds.length > 0 ? (
+        {onAirAds.length > 0 && (
           <div>
             <Advertisement></Advertisement>
           </div>
-        ) : (
-          <></>
         )}
       </div>
     </div>
