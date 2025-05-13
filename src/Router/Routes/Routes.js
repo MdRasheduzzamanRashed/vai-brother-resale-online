@@ -12,7 +12,6 @@ import Login from "./../../Pages/Login/Login";
 import PrivateRoutes from "./../PrivateRoutes/PrivateRoutes";
 import AdminRoutes from "../AdminRoutes/AdminRoutes";
 import DashboardLayout from "./../../Layouts/DashboardLayout";
-import DisplayError from "./../../Pages/SharedSections/DisplayError/DisplayError";
 import AddALaptop from "../../Pages/Dashboard/AddALaptop/AddALaptop";
 import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import MyLaptops from "../../Pages/Dashboard/MyLaptops/MyLaptops";

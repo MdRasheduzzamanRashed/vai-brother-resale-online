@@ -42,7 +42,6 @@ const Login = () => {
   const handleLogin = (data) => {
     signIn(data.email, data.password)
       .then((result) => {
-        const user = result.user;
         setLoginUserEmail(data.email);
         setLoginError("");
       })
